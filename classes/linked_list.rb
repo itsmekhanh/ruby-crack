@@ -2,6 +2,8 @@
 # The next pointer points to the next LinkedList node, thus creating a
 # LinkedList data structure
 
+require_relative "stack.rb"
+
 class LinkedListNode
 
     attr_accessor :data
@@ -173,6 +175,37 @@ class LinkedList
         end
 
         w.next = greater_list_head
+        return true
+    end
+
+    #2.7
+    def palindrome
+        runner = @head
+        walker = @head
+        stack = Stack.new
+
+        while !runner.nil? do
+            if runner.next.nil?
+                walker = walker.next
+                break
+            end
+
+            stack.push(walker.data)
+
+            walker = walker.next
+            runner = runner.next.next
+        end
+
+        while !walker.nil? do
+            popped = stack.pop
+            if walker.data != popped
+                puts "Nope. It is a not a palindrome"
+                return false
+            end
+
+            walker = walker.next
+        end
+        puts "Yes. It is a palindrome"
         return true
     end
 end
