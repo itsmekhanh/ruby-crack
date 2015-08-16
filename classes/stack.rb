@@ -3,10 +3,9 @@
 require_relative "linked_list.rb"
 
 class Stack
-    
-    
     def initialize
         @stack = nil
+        @count = 0
     end
     
     def push(data)
@@ -18,6 +17,8 @@ class Stack
             node.next = @stack
             @stack = node
         end
+
+        @count += 1
         return true
     end
 
@@ -26,6 +27,7 @@ class Stack
         if !@stack.nil?
             data = @stack.data
             @stack = @stack.next
+            @count -= 1
             return data
         else
             return nil
@@ -44,10 +46,14 @@ class Stack
     def print_stack
         w = @stack
 
-        while w.nil? do
+        while !w.nil? do
             print "[#{w.data}]"
             w = w.next
         end
         print "\n"
+    end
+
+    def empty?
+        return @count == 0
     end
 end
