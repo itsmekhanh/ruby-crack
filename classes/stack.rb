@@ -3,9 +3,13 @@
 require_relative "linked_list.rb"
 
 class Stack
-    def initialize
+    def initialize(data = nil)
         @stack = nil
         @count = 0
+
+        if !data.nil? && data.kind_of?(Array)
+            self.fill_stack(data)
+        end
     end
     
     def push(data)
@@ -55,5 +59,12 @@ class Stack
 
     def empty?
         return @count == 0
+    end
+
+    def fill_stack(data)
+        
+        for i in 0..data.length-1
+            self.push(data[i])
+        end
     end
 end
