@@ -49,6 +49,10 @@ class Queue
             w = w.next
         end
     end
+
+    def empty?
+        return @head.nil?
+    end
 end
 
 class MyQueue
