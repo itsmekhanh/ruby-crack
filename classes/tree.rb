@@ -134,4 +134,39 @@ class BinarySearchTree
             height += 1
         end
     end
+
+    def is_balanced
+        return (self.max_height - self.min_height) <= 1
+    end
+
+    def min_height(node = nil)
+        
+        if node.nil?
+            node = @root
+        end
+
+        if node.left.nil? && node.right.nil?
+            return 0
+        end
+
+        left = if node.left.nil? then 0 else 1+min_height(node.left) end
+        right = if  node.right.nil? then 0 else 1+min_height(node.right) end
+
+        return [left, right].min 
+    end
+
+    def max_height(node = nil)
+        if node.nil?
+            node = @root
+        end
+
+        if node.left.nil? && node.right.nil?
+            return 0
+        end
+
+        left = if node.left.nil? then 0 else 1+max_height(node.left) end
+        right = if node.right.nil? then 0 else 1+max_height(node.right) end
+
+        return [left, right].max
+    end
 end
