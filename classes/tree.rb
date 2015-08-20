@@ -169,4 +169,50 @@ class BinarySearchTree
 
         return [left, right].max
     end
+    
+    def print_bfs
+        require_relative "queue.rb"
+
+        if @root.nil?
+            return "[]"
+        end
+
+        queue = Queue.new(@root)
+        
+        while !queue.empty? do
+            node = queue.dequeue
+            puts "[#{node.data}]"
+            if !node.left.nil?
+                queue.enqueue(node.left)
+            end
+            if !node.right.nil?
+                queue.enqueue(node.right)
+            end
+        end
+        puts "\n"
+    end
+
+    def print_dfs
+        require_relative "stack.rb"
+
+        if @root.nil?
+            return "[]"
+        end
+
+        stack = Stack.new(@root)
+
+        while !stack.empty? do
+            node = stack.pop
+            puts "[#{node.data}]"
+
+            if !node.left.nil?
+                stack.push(node.left)
+            end
+            if !node.right.nil?
+                stack.push(node.right)
+            end
+        end
+
+        puts "\n"
+    end
 end
