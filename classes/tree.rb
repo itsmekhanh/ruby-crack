@@ -12,6 +12,46 @@ class BinaryTreeNode
 
 end
 
+class BinaryTree
+    
+    def initialize
+        @root = nil
+    end
+
+    def insert(data)
+        require_relative "queue.rb"
+        
+        node = BinaryTreeNode.new(data)
+
+        if @root.nil?
+            @root = node
+            return true
+        else
+            queue = Queue.new
+            queue.enqueue(@root)
+
+            while queue.empty? do
+                w = queue.dequeue
+
+                if !w.left.nil?
+                    queue.enqueue(w.left)
+                else
+                    w.left = node
+                    return true
+                end
+
+                if !w.right.nil?
+                    queue.enqueue(w.right)
+                else
+                    w.right = node
+                    return true
+                end
+            end
+        end
+        return false
+    end
+end
+
 class BinarySearchTree
         
     def initialize
@@ -214,5 +254,23 @@ class BinarySearchTree
         end
 
         puts "\n"
+    end
+    
+    # 4.5
+    def is_bst(min=Integer::MIN, max=Integer::MAX, node=nil)
+        if node.nil?
+            node = @root
+        end
+
+        value = node.data
+
+        if value <= min || value >= max
+            return false
+        end
+
+        left = if node.left.nil? then true else self.is_bst(min, value, node.left) end
+        right = if node.right.nil? then true else self.is_bst(value, max, node.right) end
+
+        return left || right
     end
 end
