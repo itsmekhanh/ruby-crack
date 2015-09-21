@@ -256,7 +256,7 @@ class BinarySearchTree
         puts "\n"
     end
     
-    # 4.5
+    # 4.5 CC
     def is_bst(min=Integer::MIN, max=Integer::MAX, node=nil)
         if node.nil?
             node = @root
@@ -272,5 +272,31 @@ class BinarySearchTree
         right = if node.right.nil? then true else self.is_bst(value, max, node.right) end
 
         return left || right
+    end
+
+    # 4.6 CC
+    def common_ancestor(node,x,y)
+        result = 0
+        
+        if node.nil?
+            node = @root
+        end
+
+        if node.data == x || node.data == y
+            result = -1
+        end
+
+        if node.left.nil?
+            result += self.common_ancestor(node.left,x,y)
+        end
+        if node.right.nil?
+            result += self.common_ancestor(node.right,x,y)
+        end
+
+        if result == -2
+            return node.data
+        else
+            return result
+        end
     end
 end
